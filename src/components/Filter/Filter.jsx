@@ -1,15 +1,16 @@
-import { changeFilter } from '../../redux/contacts-actions';
 import { useSelector, useDispatch } from 'react-redux';
-import { getFilter } from '../../redux/contacts-selectors';
+import { contactsSelectors, contactsActions } from '../../redux/contacts/index';
 import PropTypes from 'prop-types';
 import s from './Filter.module.css';
 
-const Filter = () => {
-  const value = useSelector(getFilter);
+export default function Filter() {
+  const value = useSelector(contactsSelectors.getFilter);
   const dispatch = useDispatch();
 
-  const onChangeHandler = event => dispatch(changeFilter(event.target.value));
-  const onBlur = () => dispatch(changeFilter(''));
+  const onChangeHandler = event =>
+    dispatch(contactsActions.changeFilter(event.target.value));
+
+  const onBlurHandler = () => dispatch(contactsActions.changeFilter(''));
 
   return (
     <label className={s.label}>
@@ -19,13 +20,11 @@ const Filter = () => {
         type="text"
         value={value}
         onChange={onChangeHandler}
-        onBlur={onBlur}
+        onBlur={onBlurHandler}
       />
     </label>
   );
-};
-
-export default Filter;
+}
 
 Filter.propTypes = {
   value: PropTypes.string,

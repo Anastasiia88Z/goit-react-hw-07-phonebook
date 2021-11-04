@@ -1,18 +1,19 @@
 import React, { useEffect } from 'react';
-import * as contactsOperation from '../../redux/contacts-operation';
 import { useDispatch, useSelector } from 'react-redux';
-import { getVisibleContacts } from '../../redux/contacts-selectors';
+import {
+  contactsOperations,
+  contactsSelectors,
+} from '../../redux/contacts/index';
+
 import s from './ListContacts.module.css';
 import PropTypes from 'prop-types';
 
-const ListContacts = () => {
-  const contacts = useSelector(getVisibleContacts);
+function ListContacts() {
+  const contacts = useSelector(contactsSelectors.getVisibleContacts);
   const dispatch = useDispatch();
-  const onDeleteContacts = id =>
-    dispatch(contactsOperation.deleteContactsAction(id));
 
   useEffect(() => {
-    dispatch(contactsOperation.fetchContactsAction());
+    dispatch(contactsOperations.fetchContacts());
   }, [dispatch]);
 
   return (
@@ -23,7 +24,7 @@ const ListContacts = () => {
           <button
             className={s.button}
             type="button"
-            onClick={() => onDeleteContacts(id)}
+            onClick={() => dispatch(contactsOperations.deleteContacts(id))}
           >
             Delete
           </button>
@@ -31,7 +32,7 @@ const ListContacts = () => {
       ))}
     </ul>
   );
-};
+}
 export default ListContacts;
 
 ListContacts.propTypes = {
