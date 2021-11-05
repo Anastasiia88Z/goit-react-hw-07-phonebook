@@ -13,22 +13,22 @@ export const fetchContacts = createAsyncThunk(
   },
 );
 
-export const addContacts = createAsyncThunk(
-  'contacts/addContacts',
+export const addContact = createAsyncThunk(
+  'contacts/addContact',
   async (contact, { rejectWithValue }) => {
     try {
-      return await contactsApi.addContacts(contact);
+      return await contactsApi.addContact(contact);
     } catch (error) {
       return rejectWithValue(error.message);
     }
   },
 );
 
-export const deleteContacts = createAsyncThunk(
-  'contact/deleteContacts',
+export const deleteContact = createAsyncThunk(
+  'contact/deleteContact',
   async (id, { rejectWithValue }) => {
     try {
-      await contactsApi.deleteContacts(id);
+      await contactsApi.deleteContact(id);
       return id;
     } catch (error) {
       return rejectWithValue(error.message);

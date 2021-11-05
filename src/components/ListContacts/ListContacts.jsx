@@ -22,7 +22,7 @@ function ListContacts() {
           <button
             className={s.button}
             type="button"
-            onClick={() => dispatch(contactsOperations.deleteContacts(id))}
+            onClick={() => dispatch(contactsOperations.deleteContact(id))}
           >
             Delete
           </button>

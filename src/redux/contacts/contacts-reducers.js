@@ -2,15 +2,15 @@ import { createReducer } from '@reduxjs/toolkit';
 import { combineReducers } from 'redux';
 import {
   fetchContacts,
-  addContacts,
-  deleteContacts,
+  addContact,
+  deleteContact,
 } from './contacts-operations';
 import { contactsActions } from '.';
 
 const entities = createReducer([], {
-  [fetchContacts.fulfilled]: (_state, { payload }) => payload,
-  [addContacts.fulfilled]: (state, { payload }) => [payload, ...state],
-  [deleteContacts.fulfilled]: (state, { payload }) =>
+  [fetchContacts.fulfilled]: (_, state, { payload }) => payload,
+  [addContact.fulfilled]: (state, { payload }) => [payload, ...state],
+  [deleteContact.fulfilled]: (state, { payload }) =>
     state.filter(contact => contact.id !== payload),
 });
 
@@ -18,21 +18,21 @@ const isLoading = createReducer(false, {
   [fetchContacts.pending]: () => true,
   [fetchContacts.fulfilled]: () => false,
   [fetchContacts.rejected]: () => false,
-  [deleteContacts.fulfilled]: () => false,
-  [deleteContacts.pending]: () => true,
-  [deleteContacts.rejected]: () => false,
-  [addContacts.fulfilled]: () => false,
-  [addContacts.pending]: () => true,
-  [addContacts.rejected]: () => false,
+  [deleteContact.fulfilled]: () => false,
+  [deleteContact.pending]: () => true,
+  [deleteContact.rejected]: () => false,
+  [addContact.fulfilled]: () => false,
+  [addContact.pending]: () => true,
+  [addContact.rejected]: () => false,
 });
 
 const error = createReducer(null, {
   [fetchContacts.rejected]: (_state, { payload }) => payload,
-  [fetchContacts.pending]: () => null,
-  [addContacts.pending]: () => null,
-  [addContacts.rejected]: (_state, { payload }) => payload,
-  [deleteContacts.pending]: () => null,
-  [deleteContacts.rejected]: (_state, { payload }) => payload,
+  [fetchContacts.pending]: null,
+  [addContact.pending]: null,
+  [addContact.rejected]: (_state, { payload }) => payload,
+  [deleteContact.pending]: null,
+  [deleteContact.rejected]: (_state, { payload }) => payload,
 });
 
 const filter = createReducer('', {
