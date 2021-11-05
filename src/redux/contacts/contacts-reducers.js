@@ -8,10 +8,10 @@ import {
 import { contactsActions } from '.';
 
 const entities = createReducer([], {
-  [fetchContacts.fulfilled]: (_state, payload) => payload,
+  [fetchContacts.fulfilled]: (_state, { payload }) => payload,
   [addContacts.fulfilled]: (state, { payload }) => [payload, ...state],
   [deleteContacts.fulfilled]: (state, { payload }) =>
-    state.filter(({ contact }) => contact.id !== payload),
+    state.filter(contact => contact.id !== payload),
 });
 
 const isLoading = createReducer(false, {
@@ -27,12 +27,12 @@ const isLoading = createReducer(false, {
 });
 
 const error = createReducer(null, {
-  [fetchContacts.rejected]: (_state, payload) => payload,
+  [fetchContacts.rejected]: (_state, { payload }) => payload,
   [fetchContacts.pending]: () => null,
   [addContacts.pending]: () => null,
-  [addContacts.rejected]: (_state, payload) => payload,
+  [addContacts.rejected]: (_state, { payload }) => payload,
   [deleteContacts.pending]: () => null,
-  [deleteContacts.rejected]: (_state, payload) => payload,
+  [deleteContacts.rejected]: (_state, { payload }) => payload,
 });
 
 const filter = createReducer('', {
